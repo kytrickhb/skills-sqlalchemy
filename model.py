@@ -17,14 +17,14 @@ class Model(db.Model):
     __tablename__ = "models"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    year = db.Column(db.Integer(4), nullable=True)
+    year = db.Column(db.Integer, nullable=True)
     brand_name = db.Column(db.String(50), db.ForeignKey('brands.name'), nullable=True)
     name = db.Column(db.String(50), nullable=True)
 
     brand = db.relationship('Brand', backref="models")
 
     def __repr__(self):
-        return "<Model brand_name=%s name=%s>" % (self.brand_name, self.name)
+        return "<Model brand_name=%r name=%r>" % (self.brand_name, self.name)
 
 
 class Brand(db.Model):
@@ -32,15 +32,16 @@ class Brand(db.Model):
     __tablename__ = "brands"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(50), db.ForeignKey('models.brand_name'),nullable=False)
-    founded = db.Column(db.Integer(4), nullable=True)
+    #name = db.Column(db.String(50), db.ForeignKey('models.brand_name'),nullable=False)
+    name = db.Column(db.String(50), nullable=False)
+    founded = db.Column(db.Integer, nullable=True)
     headquarters = db.Column(db.String(50), nullable=True)
-    discontinued = db.Column(db.Integer(4), nullable=True)
+    discontinued = db.Column(db.Integer, nullable=True)
 
-    model = db.relationship('Model', backref="brands")
+    #model = db.relationship('Model', backref="brands")
 
     def __repr__(self):
-        return "<Brand name=%s>" % (brands.name)
+        return "<Brand name=%r>" % (self.name)
 
 # End Part 1
 ##############################################################################
